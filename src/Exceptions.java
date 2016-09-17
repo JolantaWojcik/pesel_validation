@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import javax.swing.JOptionPane;
 
 public class Exceptions {
@@ -19,11 +22,9 @@ public class Exceptions {
 			//4 rodzaje wyjatków walidacji i chcamy ka¿dego z nich z³apaæ osobno
 			try {
 				pesel = JOptionPane.showInputDialog("Wprowadz pesel");
-				String month = pesel.substring(4, 6);
-				System.out.println(month);
-				int monthNr = Integer.parseInt(month);
 				isValid(pesel);
 				//cos z tymi catchami bedzie inaczej
+				valid = true;
 			} catch (CustomException e) {
 				//cos
 				//np: jak siê pjawi invvalid pesel length exception to wypiszesz komunikat ze: zla ilosc znakow
@@ -54,16 +55,18 @@ public class Exceptions {
 		if (!(monthNr > 0 && monthNr < 13)) {
 			throw new InvalidDateInPeselException("Incorrect month");
 		}
-		if (!((dayNr >0 && dayNr < 32) && (monthNr == 1 || monthNr == 3 || monthNr == 5 ||
-				monthNr == 7 || monthNr == 8 || monthNr == 10 || monthNr == 12))) {
-			throw new InvalidDateInPeselException("Incorrect day");
+		if ((dayNr >0 && dayNr < 32) && (monthNr == 1 || monthNr == 3 || monthNr == 5 ||
+				monthNr == 7 || monthNr == 8 || monthNr == 10 || monthNr == 12)) {
+			System.out.println("Urodzilas sie miesiaca: "+ dayNr);
 		}
-		else if (!((dayNr >0 && dayNr < 31) && (monthNr == 4 || monthNr == 6 || monthNr == 9 ||
-				monthNr == 11))) {
-			throw new InvalidDateInPeselException("Incorrect day");
+		else if ((dayNr >0 && dayNr < 31) && (monthNr == 4 || monthNr == 6 || monthNr == 9 ||
+				monthNr == 11)) {
+			System.out.println("Urodzilas sie miesiaca: "+ dayNr);
 		}
-		else if (!((dayNr >0 && dayNr < 30 && leapYear(yearNr)) ||
-				(dayNr >0 && dayNr < 29 && !leapYear(yearNr)))) {
+		else if ((dayNr >0 && dayNr < 30 && leapYear(yearNr)) ||
+				(dayNr >0 && dayNr < 29 && !leapYear(yearNr))) {
+			System.out.println("Urodzilas sie miesiaca: "+ dayNr);
+		}else{
 			throw new InvalidDateInPeselException("Incorrect day");
 		}
 		int sum =0;
